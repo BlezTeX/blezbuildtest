@@ -1,0 +1,15 @@
+{
+  "name": "banditimo",
+  "version": "0.0.6",
+  "description": "Banditimo browser crime RPG prototype",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
