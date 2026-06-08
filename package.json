@@ -1,7 +1,7 @@
 {
   "name": "banditimo",
-  "version": "0.0.6",
-  "description": "Banditimo browser crime RPG prototype",
+  "version": "0.0.7",
+  "description": "Banditimo drop-in browser crime RPG prototype",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

@@ -1,97 +1,67 @@
-# Banditimo v0.0.6
+# Banditimo v0.0.7 Drop-In Build
 
-GitHub/Railway-ready Node.js version.
+This version is made to be easy to upload to GitHub/Railway.
 
-## Folder structure
+## Important
 
-Upload these files/folders to the root of your GitHub repo:
+This version does NOT need a `public` folder.
+This version does NOT need a `data` folder.
+
+Just upload these root files:
 
 ```txt
-public/
-data/
+index.html
+style.css
+game.js
 server.js
 package.json
-README.txt
 start.bat
+README.txt
 .gitignore
 ```
 
-## Local test
+The database file `banditimo-db.json` is created automatically when the server starts.
 
-Install Node.js, then run:
+## Local LAN test
 
-```bash
-npm install
-npm start
-```
+1. Install Node.js.
+2. Extract the ZIP.
+3. Double click `start.bat`.
 
-Open:
+Then open:
 
 ```txt
 http://localhost:3000
 ```
 
-Or on Windows, double click:
+For phone/LAN testing, use the LAN IP printed in the black server window, for example:
 
 ```txt
-start.bat
+http://192.168.1.50:3000
 ```
 
-## Railway deploy
+## GitHub/Railway upload
 
-This version is ready for Railway.
-
-Railway should detect:
-
-```txt
-package.json
-```
-
-and use:
-
-```bash
-npm start
-```
-
-The server automatically uses:
-
-```js
-process.env.PORT
-```
-
-so Railway can assign the port.
-
-## Replacing your current GitHub build
-
-To replace your old Banana Empire test:
-
-1. Delete the old repo contents or overwrite them.
-2. Upload/extract this v0.0.6 folder contents into the repo root.
-3. Commit changes.
-4. Railway should redeploy.
-5. Your domain should now show Banditimo.
-
-## Important database note
-
-This version still saves to:
-
-```txt
-data/db.json
-```
-
-That works locally and for testing. On Railway, file storage can reset after redeploys/restarts. For a proper public version, the next step should be moving player saves to a real persistent database like Railway Postgres.
+1. Delete the old files from your GitHub repo.
+2. Upload all files from this folder into the repo root.
+3. Commit.
+4. Railway should redeploy automatically.
+5. Open your domain.
 
 ## Features
 
+- Drop-in root structure
 - Username login without password
-- Username cannot be empty or `player`
-- Server-saved player profiles
-- Cash, XP, rank, energy, inventory and blackjack state saved server-side
+- Server-saved profiles
+- Cash, XP, rank, energy, inventory and blackjack saved on server
 - Shared casino bank
 - Blackjack
 - Roulette
-- Robberies
 - Shop
-- 10-slot inventory
-- Leaderboard sorted by XP, power or cash
+- Robberies
+- Leaderboard
 - Activity log with player names
+
+## Note about Railway saves
+
+This still uses a JSON file database. It is okay for testing, but Railway may reset file storage on redeploy/restart. Later we should switch to Postgres for permanent online saves.

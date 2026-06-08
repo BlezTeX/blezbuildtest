@@ -1,16 +1,16 @@
 @echo off
-title Banditimo v0.0.6
-echo Starting Banditimo v0.0.6...
+title Banditimo v0.0.7
+echo Starting Banditimo v0.0.7...
 echo.
 echo Installing dependencies if needed...
 call npm install
 echo.
 echo Starting server...
 echo.
-echo Local PC:
+echo Open on this PC:
 echo http://localhost:3000
 echo.
-echo Other devices on same WiFi/LAN can use the LAN IP shown by the server.
+echo For LAN testing, use the LAN IP printed below after the server starts.
 echo.
 call npm start
 pause

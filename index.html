@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banditimo v0.0.7</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <h1>Banditimo</h1>
+      <p>v0.0.7 drop-in LAN/online prototype</p>
+      <input id="usernameInput" placeholder="Enter username" maxlength="20">
+      <button onclick="login()">Enter Streets</button>
+      <div id="loginError" class="error-text"></div>
+      <small>No password yet. Your username is your save profile.</small>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <header class="topbar">
+      <div>
+        <h1>Banditimo</h1>
+        <p>Logged in as <span id="usernameLabel" class="gold"></span></p>
+      </div>
+      <button onclick="logout()" class="small-btn">Logout</button>
+    </header>
+
+    <section class="panel stats">
+      <div><span>Cash</span><strong id="cash">$0</strong></div>
+      <div><span>Energy</span><strong id="energy">10/10</strong></div>
+      <div><span>Next Energy</span><strong id="energyTimer">60s</strong></div>
+      <div><span>Casino Bank</span><strong id="casinoBalance">$5000</strong></div>
+      <div><span>Power</span><strong id="power">0</strong></div>
+      <div><span>Rank / XP</span><strong id="rank">Rookie · 0 XP</strong></div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-page="robberies">Robberies</button>
+      <button class="tab" data-page="inventory">Inventory</button>
+      <button class="tab" data-page="shop">Shop</button>
+      <button class="tab" data-page="casino">Casino</button>
+      <button class="tab" data-page="leaderboard">Leaderboard</button>
+    </nav>
+
+    <main>
+      <section id="robberies" class="page active">
+        <div class="section-title">
+          <h2>Robberies</h2>
+          <p>Each robbery costs 1 energy. Only successful robberies give XP.</p>
+        </div>
+        <div class="action-card"><div><h3>Steal a Bicycle</h3><p>30% success. Adds bicycle. +2 XP.</p></div><button onclick="doAction('stealBicycle')">Attempt</button></div>
+        <div class="action-card"><div><h3>Rob a Grandma</h3><p>Requires knife. 50% success. Pays $100. +5 XP.</p></div><button onclick="doAction('robGrandma')">Attempt</button></div>
+        <div class="action-card"><div><h3>Steal a Car</h3><p>Requires gun. 30% success. 80% Corolla, 20% Audi S3. +20 XP.</p></div><button onclick="doAction('stealCar')">Attempt</button></div>
+      </section>
+
+      <section id="inventory" class="page">
+        <div class="section-title"><h2>Inventory</h2><p>10 item slots. Select items to sell.</p></div>
+        <div id="inventoryGrid" class="inventory-grid"></div>
+        <div id="selectedItemBox" class="selected-box"><h3>No item selected</h3><p>Select an item slot first.</p></div>
+      </section>
+
+      <section id="shop" class="page">
+        <div class="section-title"><h2>Black Market Shop</h2><p>Buy gear to unlock better robberies.</p></div>
+        <div class="action-card"><div><h3>Knife</h3><p>Costs $100. Gives +5 power.</p></div><button onclick="buyItem('knife')">Buy Knife</button></div>
+        <div class="action-card"><div><h3>Gun</h3><p>Costs $1000. Gives +25 power.</p></div><button onclick="buyItem('gun')">Buy Gun</button></div>
+      </section>
+
+      <section id="casino" class="page">
+        <div class="section-title"><h2>Casino</h2><p>Shared casino bank for all players.</p></div>
+        <div class="casino-tabs">
+          <button id="blackjackToggle" class="casino-toggle active" onclick="showCasinoGame('blackjack')">Blackjack</button>
+          <button id="rouletteToggle" class="casino-toggle" onclick="showCasinoGame('roulette')">Roulette</button>
+        </div>
+
+        <div id="blackjackGame" class="casino-card casino-game active">
+          <h3>Blackjack</h3>
+          <p>Min $1, max $1000. Dealer stands on 17.</p>
+          <div class="form-row blackjack-row">
+            <input id="blackjackBet" type="number" min="1" max="1000" value="10">
+            <button onclick="startBlackjack()">Deal</button>
+          </div>
+          <div id="blackjackArea" class="game-box">Place a bet and deal.</div>
+        </div>
+
+        <div id="rouletteGame" class="casino-card casino-game">
+          <h3>Roulette</h3>
+          <p>Number pays 30x. Red/black pays 2x.</p>
+          <div class="form-row">
+            <input id="rouletteBet" type="number" min="1" max="1000" value="10">
+            <select id="rouletteChoice"></select>
+            <button onclick="playRoulette()">Spin</button>
+          </div>
+          <div id="rouletteArea" class="game-box">Pick a bet and spin.</div>
+        </div>
+      </section>
+
+      <section id="leaderboard" class="page">
+        <div class="section-title"><h2>Leaderboard</h2><p>Top 10 players. Sort by power, XP or cash.</p></div>
+        <div class="leaderboard-controls">
+          <button onclick="loadLeaderboard('xp')">Sort XP</button>
+          <button onclick="loadLeaderboard('power')">Sort Power</button>
+          <button onclick="loadLeaderboard('cash')">Sort Cash</button>
+        </div>
+        <div id="leaderboardTable" class="leaderboard-table"></div>
+      </section>
+    </main>
+
+    <section class="panel log-panel">
+      <h2>Activity Log</h2>
+      <div id="log"></div>
+    </section>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
